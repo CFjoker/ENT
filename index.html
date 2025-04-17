@@ -7,30 +7,43 @@
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        /* 修改 logo 样式 */
+        .logo {
+            height: 12rem; /* 调整 logo 大小 */
+            background: url('images/logo.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        /* 修改主页配色 */
+        body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #f6f9fc, #f0f4f9);
+            background: linear-gradient(135deg, #fff8e1, #ffe4b5); /* 温暖的金色背景 */
             min-height: 100vh;
         }
-        
+
         .fade-in {
             animation: fadeIn 0.8s ease-in;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .pulse {
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        
+
         .message-bubble {
             position: relative;
             border-radius: 18px;
@@ -38,61 +51,61 @@
             max-width: 70%;
             margin: 8px 0;
         }
-        
+
         .user-bubble {
             background: linear-gradient(135deg, #a991fc, #9074f7);
             color: white;
             border-top-right-radius: 4px;
             margin-left: auto;
         }
-        
+
         .ai-bubble {
             background: linear-gradient(135deg, #feeeff, #f8f0ff);
             color: #5d5a68;
             border-top-left-radius: 4px;
             margin-right: auto;
         }
-        
+
         .custom-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 248, 225, 0.85); /* 温暖的金色卡片背景 */
             backdrop-filter: blur(10px);
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2); /* 金色阴影 */
             transition: all 0.3s ease;
         }
-        
+
         .custom-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3); /* 更强的金色阴影 */
         }
-        
+
         .badge {
-            background: linear-gradient(135deg, #a991fc, #7e61ff);
+            background: linear-gradient(135deg, #ffd700, #ffb347); /* 金色徽章 */
             color: white;
             border-radius: 12px;
             padding: 3px 10px;
             font-size: 0.75rem;
             font-weight: 600;
         }
-        
+
         .gradient-bg {
-            background: linear-gradient(135deg, #9f7aea, #7e61ff);
+            background: linear-gradient(135deg, #ffd700, #ffb347); /* 金色渐变背景 */
         }
-        
+
         .gradient-text {
-            background: linear-gradient(135deg, #9f7aea, #7e61ff);
+            background: linear-gradient(135deg, #ffd700, #ffb347); /* 金色渐变文字 */
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
+
         /* 页面切换动画 */
         .page-container {
             display: none;
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-        
+
         .page-container.active {
             display: block;
             opacity: 1;
@@ -146,8 +159,8 @@
                     <div class="ai-bubble fade-in">
                         <p>你好！我是你的心灵伙伴。无论你今天经历了什么，想聊些什么，我都在这里倾听。</p>
                     </div>
-                    <div class="user-bubble fade-in">
-                        <p>最近我在学校有点不开心，感觉和同学相处得不太好...</p>
+                </div>
+                <div class="flex gap-3"></div>
                     </div>
                     <div class="ai-bubble fade-in">
                         <p>我能理解这种感受。要知道，人际关系有时候确实会让人感到困扰。能告诉我具体发生了什么吗？这样我可以更好地帮助你。</p>
@@ -155,7 +168,7 @@
                 </div>
                 <div class="flex gap-3">
                     <input type="text" placeholder="在这里输入你的心声..." class="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300">
-                    <button class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full text-white hover:opacity-90">
+                    <button onclick="sendMessage()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full text-white hover:opacity-90">
                         <i class="fas fa-paper-plane mr-2"></i>发送
                     </button>
                 </div>
@@ -299,7 +312,7 @@
                             <span id="user-level">A</span>
                         </div>
                     </div>
-                    <h3 class="text-xl font-bold text-purple-700 mb-2">阳光心态</h3>
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 result-title">阳光心态</h3>
                     <div class="badge mb-4">成长级别 5</div>
                     <p class="text-center text-gray-600">你拥有积极乐观的心态，能够从容应对生活中的压力和挑战。继续保持！</p>
                 </div>
@@ -366,7 +379,7 @@
         </div>
 
         <!-- 后台数据页 -->
-        <div id="admin" class="page-container">
+        <div id="admin" class="page-container internal">
             <div class="custom-card max-w-4xl mx-auto p-8">
                 <h2 class="text-2xl font-bold mb-6 gradient-text text-center">数据中心</h2>
                 
@@ -474,12 +487,11 @@
             <div class="custom-card max-w-md mx-auto p-8 bg-white rounded-xl">
                 <div class="text-center">
                     <i class="fas fa-clipboard-check text-5xl mb-4 text-purple-500"></i>
-                    <h3 class="text-2xl font-bold mb-4 gradient-text">评估结果</h3>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text result-title">评估结果</h3>
                     <div class="mb-6">
                         <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-r from-purple-400 to-indigo-500 flex items-center justify-center text-white text-6xl font-bold mb-4">
                             <span id="result-level">A</span>
-                        </div>
-                        <h4 class="text-xl font-bold text-purple-700">阳光心态</h4>
+  
                     </div>
                     <p class="text-gray-600 mb-6" id="result-description">
                         根据你的自评情况，你拥有积极乐观的心态，能够有效应对压力，保持良好的人际关系。继续保持这种状态，定期关注自己的心理健康！
@@ -531,34 +543,50 @@
                 answered++;
             }
             
-            // 确保所有问题都已回答
             if(answered < 5) {
                 alert('请回答所有问题');
                 return;
             }
             
-            // 根据得分显示不同结果
             const resultLevel = document.getElementById('result-level');
-            const resultDescription = document.getElementById('result-description');
+            const resultTitles = {
+                A: '阳光心态',
+                B: '良好心态',
+                C: '中等心态',
+                D: '需要关注'
+            };
             
+            const resultDescriptions = {
+                A: '根据你的自评情况，你拥有积极乐观的心态，能够有效应对压力，保持良好的人际关系。继续保持这种状态，定期关注自己的心理健康！',
+                B: '你的心理状态总体良好，但在某些方面可能存在轻微压力。建议多关注自我情绪变化，适当放松和休息。',
+                C: '你的心理状态处于中等水平，可能在某些方面面临一定的压力和困扰。建议寻求社会支持，与家人朋友多交流，必要时可以寻求专业帮助。',
+                D: '你可能正在经历较大的心理压力和困扰。建议尽快与专业心理咨询师联系，获取专业的心理支持和帮助。'
+            };
+
+            // 根据总分判断等级
+            let level = '';
             if(totalScore >= 18) {
-                resultLevel.textContent = 'A';
-                resultDescription.textContent = '根据你的自评情况，你拥有积极乐观的心态，能够有效应对压力，保持良好的人际关系。继续保持这种状态，定期关注自己的心理健康！';
+                level = 'A';
             } else if(totalScore >= 14) {
-                resultLevel.textContent = 'B';
-                resultDescription.textContent = '你的心理状态总体良好，但在某些方面可能存在轻微压力。建议多关注自我情绪变化，适当放松和休息。';
+                level = 'B';
             } else if(totalScore >= 10) {
-                resultLevel.textContent = 'C';
-                resultDescription.textContent = '你的心理状态处于中等水平，可能在某些方面面临一定的压力和困扰。建议寻求社会支持，与家人朋友多交流，必要时可以寻求专业帮助。';
+                level = 'C';
             } else {
-                resultLevel.textContent = 'D';
-                resultDescription.textContent = '你可能正在经历较大的心理压力和困扰。建议尽快与专业心理咨询师联系，获取专业的心理支持和帮助。';
+                level = 'D';
             }
+            
+            resultLevel.textContent = level;
+            
+            // 更新结果标题和描述
+            document.querySelectorAll('.result-title').forEach(element => {
+                element.textContent = resultTitles[level];
+            });
+            document.getElementById('result-description').textContent = resultDescriptions[level];
             
             // 显示结果弹窗
             document.getElementById('result-modal').style.display = 'flex';
         }
-        
+
         // 关闭弹窗
         function closeModal() {
             document.getElementById('result-modal').style.display = 'none';
@@ -566,6 +594,97 @@
             document.getElementById('user-level').textContent = document.getElementById('result-level').textContent;
             // 跳转到个人档案页
             showPage('profile');
+        }
+
+        // 发送消息功能
+        function sendMessage() {
+            const messageInput = document.querySelector('input[type="text"]');
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                // 检查敏感词
+                const warningKeywords = ['自杀', '轻生', '绝望', '放弃', '死亡', '结束生命', '厌世'];
+                const foundKeywords = warningKeywords.filter(keyword => message.includes(keyword));
+                
+                if (foundKeywords.length > 0) {
+                    // 显示预警提示
+                    const warningMessage = `检测到敏感关键词：${foundKeywords.join('、')}`;
+                    
+                    // 创建预警通知
+                    const warningNotification = document.createElement('div');
+                    warningNotification.className = 'fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg z-50';
+                    warningNotification.innerHTML = `
+                        <div class="flex items-center">
+                            <div class="py-1">
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold">预警通知</p>
+                                <p>${warningMessage}</p>
+                                <p class="text-sm mt-1">后台已收到预警，将及时进行处理和干预。</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(warningNotification);
+                    
+                    // 3秒后自动移除通知
+                    setTimeout(() => {
+                        warningNotification.remove();
+                    }, 5000);
+
+                    // 增加到后台预警列表
+                    const warningData = {
+                        timestamp: new Date().toISOString(),
+                        keyword: foundKeywords.join(', '),
+                        message: message,
+                        level: foundKeywords.length > 1 ? '高危' : '中危'
+                    };
+                    
+                    // 在管理页面添加预警记录
+                    const warningList = document.querySelector('#warning-list') || createWarningList();
+                    const warningItem = document.createElement('div');
+                    warningItem.className = 'custom-card p-4 mb-4 bg-red-50';
+                    warningItem.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold text-red-700">${warningData.level}预警</h4>
+                                <p class="text-sm text-gray-600">${new Date(warningData.timestamp).toLocaleString()}</p>
+                                <p class="text-gray-700 mt-2">触发关键词：${warningData.keyword}</p>
+                                <p class="text-gray-700">用户消息：${warningData.message}</p>
+                            </div>
+                            <span class="badge bg-red-500">待处理</span>
+                        </div>
+                    `;
+                    warningList.insertBefore(warningItem, warningList.firstChild);
+                }
+                
+                // 继续正常的消息发送逻辑
+                const chatContainer = document.getElementById('chat-container');
+                const newMessage = document.createElement('div');
+                newMessage.className = 'user-bubble fade-in';
+                newMessage.innerHTML = `<p>${message}</p>`;
+                chatContainer.appendChild(newMessage);
+                
+                // 清空输入框
+                messageInput.value = '';
+                
+                // 自动滚动到底部
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        // 创建预警列表容器
+        function createWarningList() {
+            const adminPage = document.getElementById('admin');
+            const warningSection = document.createElement('div');
+            warningSection.className = 'custom-card max-w-4xl mx-auto p-8 mt-8';
+            warningSection.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6 text-red-600">实时预警监控</h3>
+                <div id="warning-list" class="space-y-4"></div>
+            `;
+            adminPage.querySelector('.custom-card').after(warningSection);
+            return document.getElementById('warning-list');
         }
     </script>
 </body>
